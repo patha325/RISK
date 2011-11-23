@@ -1,4 +1,7 @@
 //card.h
+
+#ifndef CARD_H
+#define CARD_H
 #include <string>
 #include <vector>
 
@@ -14,3 +17,6 @@ class Card
   std::string terr;
 
 };
+
+
+#endif

@@ -1,33 +1,42 @@
 
+#ifndef GAME_ENGINE_H
+#define GAME_ENGINE_H
 #include<vector>
 #include<string>
+#include "worldmap.h"
+#include "battle.h"
+#include "territory.h"
+#include "card.h"
+#include "player.h"
 
-Class Game_Engine
+class Game_Engine
 {
  public:
-  Game_Engine(vector<Player>);
+  Game_Engine(std::vector<Player>);
 
 
  private:
-  vector<Player> players;
+  std::vector<Player> players;
   int reinforcements;
-  vector<Player>::iterator current_player;
+  std::vector<Player>::iterator current_player;
   bool extra_card;
 
   //functions
-  int use_cards(Card,Card,Card);
+  int use_cards(Card*,Card*,Card*);
   void next_player();
-  int stoi(string);
+  int stoi(std::string);
 
   // Amendments
-  string arg;
+  std::string arg;
   void run();
   void finish_card(Card*);
 
   Battle battle;
+  Worldmap world_map;
 
 };
 
+#endif
 
 
 /*

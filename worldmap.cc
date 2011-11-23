@@ -29,3 +29,8 @@ void Worldmap::push_card(Card card)
 {
 
 }
+
+Territory* Worldmap::get_territory(std::string)
+{
+
+}

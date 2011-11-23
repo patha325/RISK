@@ -1,7 +1,6 @@
 //battle.cc
 
 #include "battle.h"
-#include "territory.h"
 
 #include <string>
 using namespace std;

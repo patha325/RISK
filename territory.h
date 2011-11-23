@@ -1,4 +1,7 @@
 //territory.h
+#ifndef TERRITORY_H
+#define TERRITORY_H
+
 #include <string>
 #include <vector>
 
@@ -21,3 +24,4 @@ class Territory
   std::vector<std::string> adjacent;
 
 };
+#endif

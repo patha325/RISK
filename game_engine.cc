@@ -15,13 +15,15 @@ Game_Engine::Game_Engine(vector<Player> init_players)
   reinforcements=0;
   current_player=players.begin();
   
-  battle = new Battle(); //New Variable
+  battle = Battle(); //New Variable
+  world_map = Worldmap();
+  
 }
 
 // control the cards, throw error if invalid combination. Return cards to world_map / delete cards in player if successful.
 int Game_Engine::use_cards(Card* card1, Card* card2, Card* card3)
 {
-  int inf = 0;
+  /*  int inf = 0;
   int cav = 0;
   int art = 0;
   int jok = 0;
@@ -35,14 +37,14 @@ int Game_Engine::use_cards(Card* card1, Card* card2, Card* card3)
   cardmap["art"] = 0;
   cardmap["jok"] = 0;
 
-  cardmap.find(card1->r_type())->second()++;
-  cardmap.find(card2->r_type())->second()++;
-  cardmap.find(card3->r_type())->second()++;
+  //cardmap.find(card1->get_type())->second()++;
+  //cardmap.find(card2->get_type())->second()++;
+  //cardmap.find(card3->get_type())->second()++;
 
-  inf = cardmap.find("inf").find->second();
-  cav = cardmap.find("cav").find->second();
-  art = cardmap.find("art").find->second();
-  jok = cardmap.find("jok").find->second();
+  inf = cardmap.find("inf")->second();
+  cav = cardmap.find("cav")->second();
+  art = cardmap.find("art")->second();
+  jok = cardmap.find("jok")->second();
 
   if (inf == 3 || (inf == 2 && jok == 1))
     r_value = 4;
@@ -59,15 +61,16 @@ int Game_Engine::use_cards(Card* card1, Card* card2, Card* card3)
   finish_card(card1);
   finish_card(card2);
   finish_card(card3);
-
+  
   return r_value;
+  */
 }
 
 void Game_Engine::finish_card(Card* card)
 {
-  world_map->get_territory(card->get_terr())->add_armies(current_player->get_colour(), 2);
+  world_map.get_territory(card->get_terr())->add_armies(current_player->get_color(), 2);
   current_player->discard_card(card);
-  world_map->push_card(card);
+  world_map.push_card(card);
 }
 
 void Game_Engine::next_player()
@@ -114,7 +117,7 @@ void Game_Engine::run()
   // Place reinforcements
 
 
-  reinforcements += world_map->get_reinforcements(current_player->get_colour()); //unclear syntax
+  reinforcements += world_map.get_reinforcements(current_player->get_color()); //unclear syntax
 
   while (reinforcements > 0)
     {
@@ -122,7 +125,7 @@ void Game_Engine::run()
       cin >> arg;
 
       try {
-	world_map->get_territory(arg)->add_armies(current_player->get_colour());
+	world_map.get_territory(arg)->add_armies(current_player->get_color());
 	reinforcement--;
       }
       catch(const risk_error& e) {
@@ -141,7 +144,7 @@ void Game_Engine::run()
       cin >> destination;
 
       try {
-	battle.new_battle(world_map->get_territory(arg), world_map->get_territory(destination), current_player->get_colour());
+	battle.new_battle(world_map.get_territory(arg), world_map.get_territory(destination), current_player->get_colour());
 	
 	while (true)
 	  {
@@ -189,7 +192,7 @@ void Game_Engine::run()
       cin >> arg;
       int troops = stoi(arg);
     
-      world_map->get_territory(arg)->move_troops(troops);
+      world_map.get_territory(arg)->move_troops(troops);
       cout << "You successfully moved " + troops + " from " + arg + " to " + destination "." << endl;
     }
     catch(const risk_error& e) {

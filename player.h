@@ -1,4 +1,6 @@
 //player.h
+#ifndef PLAYER_H
+#define PLAYER_H
 #include "card.h"
 #include <string>
 #include <vector>
@@ -16,3 +18,5 @@ private:
   std::string color;
   std::vector<Card> cards;
 };
+
+#endif

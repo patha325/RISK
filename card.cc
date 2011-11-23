@@ -27,9 +27,4 @@ string Card::get_terr()
 }
  
 
-string Card::get_terr()
-{
-  return terr;
-
-}
  

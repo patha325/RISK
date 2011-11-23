@@ -1,6 +1,9 @@
 //battle.h
-#include <string>
 
+#ifndef BATTLE_H
+#define BATTLE_H
+#include <string>
+#include "territory.h"
 
 class Battle
 {
@@ -8,7 +11,7 @@ class Battle
   Battle();
   bool new_battle(Territory*, Territory*);
   void attack(int);
-  void retreat;
+  void retreat();
   void conquer(int);
 
   void set_battle();
@@ -18,3 +21,5 @@ class Battle
   Territory* defender;
 
 };
+
+#endif
