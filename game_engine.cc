@@ -23,7 +23,7 @@ Game_Engine::Game_Engine(vector<Player> init_players)
 // control the cards, throw error if invalid combination. Return cards to world_map / delete cards in player if successful.
 int Game_Engine::use_cards(Card* card1, Card* card2, Card* card3)
 {
-    int inf = 0;
+  int inf = 0;
   int cav = 0;
   int art = 0;
   int jok = 0;
@@ -37,14 +37,10 @@ int Game_Engine::use_cards(Card* card1, Card* card2, Card* card3)
   cardmap["art"] = 0;
   cardmap["jok"] = 0;
 
-  //cardmap.find(card1->get_type())->second()++;
-  //cardmap.find(card2->get_type())->second()++;
-  //cardmap.find(card3->get_type())->second()++;
-
   ++cardmap["inf"];
-  ++cardmap["inf"];
-  ++cardmap["inf"];
-  ++cardmap["inf"];
+  ++cardmap["cav"];
+  ++cardmap["art"];
+  ++cardmap["jok"];
 
   inf = cardmap["inf"];
   cav = cardmap["cav"];
@@ -68,7 +64,6 @@ int Game_Engine::use_cards(Card* card1, Card* card2, Card* card3)
   finish_card(card3);
   
   return r_value;
-  
 }
 
 void Game_Engine::finish_card(Card* card)
