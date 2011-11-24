@@ -88,8 +88,15 @@ int Game_Engine::stoi(string s)
 
 void Game_Engine::run()
 {
-  // Use Cards
+  while(true)
+    {
+      // Players turn
+      cout << "It is now " + current_player->get_name() +"s turn." <<endl;
 
+      // Print available cards?
+
+
+  // Use Cards
   while(true)
     {
       cout << "Type which cards you wish to use, or type 'pass'." << endl;
@@ -136,9 +143,13 @@ void Game_Engine::run()
   cout << "You now have no more troops to place." << endl;
 
   // Attack
-  while (cin >> arg && arg != "end")
+  while (true)
     {
       cout << "Type in 'attacking from' 'attacking to' 'number of attackers' or 'end' if you wish to begin troop redeployment." << endl;
+
+      cin >> arg;
+      if (arg == "end")
+	break;
 
       string destination;
       cin >> destination;
@@ -205,5 +216,6 @@ void Game_Engine::run()
   extra_card = false;
   cout << "Your turn ended." << endl;
   next_player();
+    } //a break; ends the game.
 }
 
