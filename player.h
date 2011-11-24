@@ -12,7 +12,8 @@ public:
   Player(std::string, std::string);
   std::string get_name();
   std::string get_color();
-
+  Card* get_card(int);
+  void discard_card(Card*);
 private:
   std::string name;
   std::string color;

@@ -56,7 +56,7 @@ int Territory::get_armies()
 }
 
 
-void Territory::move_armies(string color, string dest, int troops)
+void Territory::move_armies(string color, Territory* dest, int troops)
 {  
 if (color != owner)
     throw risk_error("Cannot reinforce territory not owned by you");

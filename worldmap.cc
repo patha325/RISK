@@ -25,12 +25,15 @@ Card Worldmap::pop_card()
 
 }
 
-void Worldmap::push_card(Card card)
+void Worldmap::push_card(Card* card)
 {
 
 }
 
-Territory* Worldmap::get_territory(std::string)
+Territory* Worldmap::get_territory(string)
 {
+
+}
+int Worldmap::get_reinforcements(string color){
 
 }

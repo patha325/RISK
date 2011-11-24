@@ -24,3 +24,14 @@ string Player::get_color()
   return color;
 
 }
+
+Card* Player::get_card(int position)
+{
+
+
+}
+
+void Player::discard_card(Card* card)
+{
+
+}

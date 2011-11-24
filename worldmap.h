@@ -13,8 +13,10 @@ class Worldmap
   Worldmap();
   int continental_bonus(std::string);
   Card pop_card();
-  void push_card(Card);
+  void push_card(Card*);
   Territory* get_territory(std::string);
+  int get_reinforcements(std::string);
+  
   
  private:
   std::map<std::string, Territory> world;

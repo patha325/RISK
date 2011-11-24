@@ -6,7 +6,8 @@
 CCC = g++
 
 # Kompilatorflaggor, lägg till '-g' om kompilering för avlusning ska göras.
-CCFLAGS  += -std=c++98 -pedantic -Wall -Wextra
+CCFLAGS  += -std=c++98 -pedantic 
+#-Wall -Wextra
 
 # Preprocessorflaggor, -I lägger till en filkatalog i inkluderingssökvägen.
 CPPFLAGS += -I$(EXPRESSION)
@@ -38,6 +39,7 @@ territory.o: territory.cc territory.h
 
 worldmap.o: worldmap.cc worldmap.h
 	$(CCC) $(CCFLAGS) $(CPPFLAGS) -c worldmap.cc
+
 
 
 

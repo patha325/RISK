@@ -8,6 +8,7 @@
 #include "territory.h"
 #include "card.h"
 #include "player.h"
+#include "risk_error.h"
 
 class Game_Engine
 {

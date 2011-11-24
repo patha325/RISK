@@ -43,6 +43,7 @@ worldmap.o: worldmap.cc worldmap.h
 
 
 
+
 # 'make clean' tar bort objektkodsfiler och 'core' (minnesdump).
 clean:
 	@ \rm -rf *.o core

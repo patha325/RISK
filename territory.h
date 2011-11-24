@@ -1,6 +1,9 @@
 //territory.h
+#ifndef TERRITORY_H
+#define TERRITORY_H
 #include <string>
 #include <vector>
+#include "risk_error.h"
 
 class Territory
 {
@@ -10,7 +13,7 @@ class Territory
   void set_owner(std::string); 
   void add_armies(std::string, int=1);
   void remove_armies(int);
-  void move_armies(std::string, std::string, int); //fixa till så att trupper förflyttas!
+  void move_armies(std::string, Territory*, int); //fixa till så att trupper förflyttas!
  
  
  std::string get_owner();
@@ -23,3 +26,5 @@ class Territory
   std::vector<std::string> adjacent;
 
 };
+
+#endif
