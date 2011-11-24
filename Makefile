@@ -14,13 +14,15 @@ CPPFLAGS += -I$(EXPRESSION)
 CPPFLAGS += -I$(VARIABLETABLE)
 
 # Objektkodsmoduler som ingår i den kompletta kalkylatorn.
-OBJECTS = battle.o card.o game_engine.o player.o territory.o worldmap.o
+OBJECTS = main.o battle.o card.o game_engine.o player.o territory.o worldmap.o
 
 # Huvudmål - skapas med kommandot 'make' eller 'make kalkylator'.
-playable: $(OBJECTS) Makefile
-	$(CCC) $(CCFLAGS) $(CPPFLAGS) -o playable $(OBJECTS)
+main: $(OBJECTS) Makefile
+	$(CCC) $(CCFLAGS) $(CPPFLAGS) -o main $(OBJECTS)
 
 # Delmål (flaggan -c avbryter innan länkning)
+main.o: main.cc game_engine.h
+	$(CCC) $(CCFLAGS) $(CPPFLAGS) -c main.cc
 
 battle.o: battle.cc battle.h
 	$(CCC) $(CCFLAGS) $(CPPFLAGS) -c battle.cc

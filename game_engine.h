@@ -14,7 +14,7 @@ class Game_Engine
 {
  public:
   Game_Engine(std::vector<Player>);
-
+void run();
 
  private:
   std::vector<Player> players;
@@ -29,8 +29,7 @@ class Game_Engine
 
   // Amendments
   std::string arg;
-  void run();
-  void finish_card(Card*);
+   void finish_card(Card*);
 
   Battle battle;
   Worldmap world_map;

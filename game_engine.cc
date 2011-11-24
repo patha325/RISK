@@ -207,12 +207,3 @@ void Game_Engine::run()
   next_player();
 }
 
-
-int main()
-{
-
-  cout << "Hi world" <<endl;
-
-
-  return 0;
-}
