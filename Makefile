@@ -6,7 +6,7 @@
 CCC = g++
 
 # Kompilatorflaggor, lägg till '-g' om kompilering för avlusning ska göras.
-CCFLAGS  += -std=c++0x -pedantic 
+CCFLAGS  += -std=c++0x -pedantic `sdl-config --libs --cflags`
 #-Wall -Wextra
 
 # Preprocessorflaggor, -I lägger till en filkatalog i inkluderingssökvägen.
@@ -15,6 +15,7 @@ CPPFLAGS += -I$(VARIABLETABLE)
 
 # Objektkodsmoduler som ingår i den kompletta kalkylatorn.
 OBJECTS = main.o battle.o card.o game_engine.o player.o territory.o worldmap.o
+UI_OBJECTS = menu.o ui_elements.o
 
 # Huvudmål - skapas med kommandot 'make' eller 'make kalkylator'.
 main: $(OBJECTS) Makefile
@@ -42,7 +43,14 @@ territory.o: territory.cc territory.h
 worldmap.o: worldmap.cc worldmap.h
 	$(CCC) $(CCFLAGS) $(CPPFLAGS) -c worldmap.cc
 
+risk: $(UI_OBJECTS) Makefile
+	$(CCC) $(CCFLAGS) $(CPPFLAGS) -o risk $(UI_OBJECTS)
 
+menu.o: menu.cc
+	$(CCC) $(CCFLAGS) $(CPPFLAGS) -c menu.cc
+
+ui_elements.o: ui_elements.h ui_elements.cc
+	$(CCC) $(CCFLAGS) $(CPPFLAGS) -c ui_elements.cc
 
 
 
