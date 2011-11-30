@@ -6,7 +6,7 @@
 CCC = g++
 
 # Kompilatorflaggor, lägg till '-g' om kompilering för avlusning ska göras.
-CCFLAGS  += -std=c++98 -pedantic 
+CCFLAGS  += -std=c++0x -pedantic 
 #-Wall -Wextra
 
 # Preprocessorflaggor, -I lägger till en filkatalog i inkluderingssökvägen.

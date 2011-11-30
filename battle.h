@@ -12,10 +12,11 @@ class Battle
   bool new_battle(Territory*, Territory*, std::string);
   int attack(int);
   void retreat();
-  void conquer(int);
+  void conquer(int,int);
 
   private:
   Territory* attacker;
   Territory* defender;
+  int diceroll();
 };
 #endif

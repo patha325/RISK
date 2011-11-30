@@ -17,7 +17,7 @@ public:
 private:
   std::string name;
   std::string color;
-  std::vector<Card> cards;
+  std::vector<Card*> cards;
 };
 
 #endif

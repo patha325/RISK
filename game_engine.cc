@@ -57,23 +57,32 @@ int Game_Engine::use_cards(Card* card1, Card* card2, Card* card3)
     r_value = 10;
 
   if (r_value == 0)
-    throw risk_error("Invalid card combination");
+    throw risk_error("Invalid card combination");                     // SKA VARA GRAFISKT
 
   finish_card(card1);
   finish_card(card2);
   finish_card(card3);
   
-  return r_value;
+  return r_value;                     // SKA VARA GRAFISKT
 }
 
 void Game_Engine::finish_card(Card* card)
 {
-  world_map.get_territory(card->get_terr())->add_armies(current_player->get_color(), 2);
+  try {
+  Territory* card_terr = world_map.get_territory(card->get_terr());
+
+  if (card->get_terr() != "joker")
+    card_terr->add_armies(current_player->get_color(), 2);
+    
+    
+  card_terr->add_armies(current_player->get_color(), 2);
   current_player->discard_card(card);
   world_map.push_card(card);
+  }
+  catch(const risk_error& e){}
 }
 
-void Game_Engine::next_player()
+void Game_Engine::next_player()// SKA VARA GRAFISKT
 {
   if(++current_player == players.end())
     current_player = players.begin();
@@ -91,32 +100,38 @@ void Game_Engine::run()
   while(true)
     {
       // Players turn
-      cout << "It is now " + current_player->get_name() +"s turn." <<endl;
+      cout<<endl;
+      cout << "It is now " + current_player->get_name() +"s turn." <<endl;// SKA VARA GRAFISKT
 
       // Print available cards?
 
+      cout << "You have the following cards: " <<endl;
+      // for(int i=0 : i<
+      int i =0;
+      Card* current_card = current_player->get_card(0); // PATRIK
+      cout << "Number " <<i<< " Type: "+current_card->get_type() << " Territory: " +current_card->get_terr() <<endl; // PATRIK
 
   // Use Cards
   while(true)
     {
-      cout << "Type which cards you wish to use, or type 'pass'." << endl;
+      cout << "Type which cards you wish to use, or type 'pass'." << endl;// SKA VARA GRAFISKT
       try {
-	cin >> arg;
-	if (arg == "pass")
+	cin >> arg;                               // SKA VARA GRAFISKT
+	if (arg == "pass")                                // SKA VARA GRAFISKT
 	  {
-	    cout << "No cards were used this turn." << endl;
+	    cout << "No cards were used this turn." << endl;// SKA VARA GRAFISKT
 	    break;
 	  }
 	Card* card1 = current_player->get_card(stoi(arg));
-	cin >> arg;
+	cin >> arg;                              // SKA VARA GRAFISKT
 	Card* card2 = current_player->get_card(stoi(arg));
-	cin >> arg;
+	cin >> arg;                                       // SKA VARA GRAFISKT
 	Card* card3 = current_player->get_card(stoi(arg));
-
+                               // SKA VARA GRAFISKT
 	reinforcements = use_cards(card1, card2, card3);
       }
       catch(const risk_error& e) {
-	cout << e.what() << endl;
+	cout << e.what() << endl;                               // SKA VARA GRAFISKT
       }
     }
 
@@ -126,26 +141,26 @@ void Game_Engine::run()
 
    reinforcements += world_map.get_reinforcements(current_player->get_color()); //unclear syntax
 
-  while (reinforcements > 0)
+  while (reinforcements > 0)                               // SKA VARA GRAFISKT
     {
-      cout << "Select reinforcement location" << endl;
-      cin >> arg;
+      cout << "You have " << reinforcements << " troops left to place. Select reinforcement location" << endl;                               // SKA VARA GRAFISKT
+      cin >> arg;                               // SKA VARA GRAFISKT
 
       try {
-	world_map.get_territory(arg)->add_armies(current_player->get_color());
+	world_map.get_territory(arg)->add_armies(current_player->get_color());                               // SKA VARA GRAFISKT
 	reinforcements--;
       }
       catch(const risk_error& e) {
-	cout << e.what() << endl;
+	cout << e.what() << endl;                               // SKA VARA GRAFISKT
       }
     }
 
-  cout << "You now have no more troops to place." << endl;
+  cout << "You now have no more troops to place." << endl;                               // SKA VARA GRAFISKT
 
   // Attack
   while (true)
     {
-      cout << "Type in 'attacking from' 'attacking to' 'number of attackers' or 'end' if you wish to begin troop redeployment." << endl;
+      cout << "Type in 'attacking from' 'attacking to'  or 'end' if you wish to begin troop redeployment." << endl;                               // SKA VARA GRAFISKT
 
       cin >> arg;
       if (arg == "end")
@@ -155,45 +170,79 @@ void Game_Engine::run()
       cin >> destination;
 
       try {
-	battle.new_battle(world_map.get_territory(arg), world_map.get_territory(destination), current_player->get_color());
+	battle.new_battle(world_map.get_territory(arg), world_map.get_territory(destination), current_player->get_color());                               // SKA VARA GRAFISKT
 	
 	while (true)
 	  {
-	    cout << "Press 'a n' to attack with n troops or 'r' to retreat." << endl;
-
-	    cin >> arg;
-	    if (arg == "r")
-	      break;
-
-	    cin >> arg;
-	    int i = stoi(arg);
-	   	   
-	   int attackers = battle.attack(i);
-	    if (i == 2)
+	    int attackers=0;
+	    int result=1;
+	    while(true)
 	      {
-		extra_card = true;
+		try{
+		  cout << "Press 'a n' to attack with n troops or 'r' to retreat." << endl;                               // SKA VARA GRAFISKT
+
+		  cin >> arg;                               // SKA VARA GRAFISKT
+		  if (arg != "a")
+		    {
+		      cout << "Chickenshit." << endl;
+		      break;
+		      break;
+		    }
+
+		  cin >> arg;   // SKA VARA GRAFISKT
+		  attackers=stoi(arg);
+		  result=battle.attack(attackers);	  
+		  break; 	   
+		}
+		catch(const risk_error& e)
+		  {
+		    cout << e.what() << endl;
+		  }
+		if (arg == "r")
+		  break;
+	      }
+
+	    if (result == 2)
+	      {
+		while(true)
+		  {
+		    cout << "Defender lost."<<endl;                               // SKA VARA GRAFISKT
+		    try{
+		      cout << "How many troops do you wish to transfer to your new territory?" << endl;
+		      cin >> arg;
+		      int settlers;
+		      settlers = stoi(arg);
+		      battle.conquer(attackers,settlers);
+		      cout << "You succesfully conquered " + destination + " from player " + world_map.get_territory(destination)->get_owner() +"."<<endl;
+		      extra_card = true;
+		      break;
+		    }
+		    catch(const risk_error& e){
+		      cout << e.what() << endl;
+		    }
+		  }
 		break;
 	      }
-	    if (i == 0)
+	    if (result == 0){
+	      cout<< "Could not keep attacking."<<endl;                                // SKA VARA GRAFISKT
 	      break;
-	    
+	    }
 	  } //Do we need to clear the battle object after a battle is finished?
-
       }
       catch(const risk_error& e) {
-	cout << e.what() << endl;
+	cout << e.what() << endl;                               // SKA VARA GRAFISKT
       }
 
     } // end of while
  
-    cout << "You can now move troops from one friendly area to another connected friendly area." << endl;
+    cout << "You can now move troops from one friendly area to another connected friendly area." << endl;                               // SKA VARA GRAFISKT
 
   //troop movement
 
   while(true){
-    cout << "Type 'redeploying from' 'redeploying to' 'number of troops' or 'pass' to pass." << endl;
+    cout << "Type 'redeploying from' 'redeploying to' 'number of troops' or 'pass' to pass." << endl;                               // SKA VARA GRAFISKT
     try{
-      cin >> arg;
+      cin >> arg;                               // SKA VARA GRAFISKT
       if (arg == "pass")
 	break;
 
@@ -203,18 +252,18 @@ void Game_Engine::run()
       cin >> arg;
       int troops = stoi(arg);
     
-      world_map.get_territory(arg)->move_armies(current_player->get_color(), world_map.get_territory(destination), troops);
-      cout << "You successfully moved "<< troops<< " from "+ arg + " to "+ destination + "." << endl;
+      world_map.get_territory(arg)->move_armies(current_player->get_color(), world_map.get_territory(destination), troops);                               // SKA VARA GRAFISKT
+      cout << "You successfully moved "<< troops<< " from "+ arg + " to "+ destination + "." << endl;                               // SKA VARA GRAFISKT
     }
     catch(const risk_error& e) {
-      cout << e.what() << endl;
+      cout << e.what() << endl;                               // SKA VARA GRAFISKT
     }    
   }
 
   // give out cards if you successfully conquered a territory this turn
 
   extra_card = false;
-  cout << "Your turn ended." << endl;
+  cout << "Your turn ended." << endl;                               // SKA VARA GRAFISKT
   next_player();
     } //a break; ends the game.
 }

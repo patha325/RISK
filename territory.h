@@ -8,15 +8,17 @@
 class Territory
 {
  public:
-  Territory(std::string, std::vector<std::string>);
+  Territory(std::string, std::string, std::vector<std::string>);
   bool owned_by(std::string);
   void set_owner(std::string); 
   void add_armies(std::string, int=1);
-  void remove_armies(int);
+  void remove_armies(int=1);
   void move_armies(std::string, Territory*, int); //fixa till så att trupper förflyttas!
+  
+  std::string get_name();
+  bool is_adjacent(std::string);
  
- 
- std::string get_owner();
+  std::string get_owner();
   int get_armies();
 
   private:
