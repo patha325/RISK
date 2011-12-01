@@ -1,6 +1,8 @@
 #include "SDL.h"
 #include "SDL_image.h"
 #include "ui_elements.h"
+#include <string>
+#include <iostream>
 
 
 Button::Button( int x, int y, int w, int h )
@@ -23,67 +25,71 @@ int Button::handle_events()
     int x = 0, y = 0;
     SDL_Event event;
     
-    /*
-    //If the mouse moved
-    if( event.type == SDL_MOUSEMOTION )
-    {
-        //Get the mouse offsets
-        x = event.motion.x;
-        y = event.motion.y;
-        
-        //If the mouse is over the button
-        if( ( x > dim->x ) && ( x < dim->x + dim->w ) && ( y > dim->y ) && ( y < dim->y + dim->h ) )
-        {
-	  //state = 1;
-        }   
-	
-	else 
-	  {
-	    //state
-	  }
-	
-    }
-
-    */
-
-    //If a mouse button was pressed
-    if( event.type == SDL_MOUSEBUTTONDOWN )
+    if (SDL_PollEvent(&event))
       {
-        //If the left mouse button was pressed
-        if( event.button.button == SDL_BUTTON_LEFT )
+	
+	/*
+	//If the mouse moved
+	if( event.type == SDL_MOUSEMOTION )
 	  {
-            //Get the mouse offsets
-            x = event.button.x;
-            y = event.button.y;
+	    //Get the mouse offsets
+	    x = event.motion.x;
+	    y = event.motion.y;
 	    
-            //If the mouse is over the button
-            if( ( x > dim->x ) && ( x < dim->x + dim->w ) && ( y > dim->y ) && ( y < dim->y + dim->h ) )
+	    //If the mouse is over the button
+	    if( ( x > dim->x ) && ( x < dim->x + dim->w ) && ( y > dim->y ) && ( y < dim->y + dim->h ) )
 	      {
-		return 2;
+		return 1;
+	      }   
+	    
+	    else 
+	      {
+		return 0; 
+	      }
+	    
+	  }
+	*/
+	
+	//If a mouse button was pressed
+	if( event.type == SDL_MOUSEBUTTONDOWN )
+	  {
+	    //If the left mouse button was pressed
+	    if( event.button.button == SDL_BUTTON_LEFT )
+	      {
+		//Get the mouse offsets
+		x = event.button.x;
+		y = event.button.y;
+		
+		//If the mouse is over the button
+		if( ( x > dim->x ) && ( x < dim->x + dim->w ) && ( y > dim->y ) && ( y < dim->y + dim->h ) )
+		  {
+		    return 2;
+		  }
 	      }
 	  }
-      }
-    
-    
-    //If a mouse button was released
-    if( event.type == SDL_MOUSEBUTTONUP )
-      {
-        //If the left mouse button was released
-        if( event.button.button == SDL_BUTTON_LEFT )
-	  { 
-            //Get the mouse offsets
-            x = event.button.x;
-            y = event.button.y;
-	    
-            //If the mouse is over the button
-            if( ( x > dim->x ) && ( x < dim->x + dim->w ) && ( y > dim->y ) && ( y < dim->y + dim->h ) )
-	      {
-		return 3;
+	
+	
+	//If a mouse button was released
+	if( event.type == SDL_MOUSEBUTTONUP )
+	  {
+	    //If the left mouse button was released
+	    if( event.button.button == SDL_BUTTON_LEFT )
+	      { 
+		//Get the mouse offsets
+		x = event.button.x;
+		y = event.button.y;
+		
+		//If the mouse is over the button
+		if( ( x > dim->x ) && ( x < dim->x + dim->w ) && ( y > dim->y ) && ( y < dim->y + dim->h ) )
+		  {
+		    return 3;
+		  }
 	      }
 	  }
+	
+	return 0;
+	
       }
-    
-    return 0;
 }
 
 
@@ -99,12 +105,18 @@ Image::Image(int x, int y, int w, int h)
   
 }
 
-
+// char*
 void Image::show(SDL_Surface* surf, const char* imgurl)
   {
   
-    SDL_Surface* image = surf;
-    image = SDL_LoadBMP( imgurl );
+    SDL_Surface* image = NULL;
+    //image = SDL_LoadBMP ("earth.bmp");
+    //SDL_Surface* surf = NULL;
+    image = SDL_LoadBMP(imgurl);
+    if (image == NULL) {
+      std::cerr << "image was null for url: \"" << imgurl << "\"" << std::endl;
+      exit(1);
+    }
     SDL_BlitSurface( image, NULL, surf, NULL );
   
   }

@@ -1,14 +1,15 @@
 
 
 #include "SDL.h"
-#include "SDL_image.h"
+//#include "SDL_image.h"
 #include "ui_elements.h"
+//#include "SDL_TTF.h"
 
 using namespace std;
 
 int main() {
 
-  //Settings
+  //Settingsf
   SDL_Surface* screen = NULL;
   int scrh = 768;
   int scrw = 1024;
@@ -34,7 +35,7 @@ int main() {
   ///*
   
   Image backgroundimage (0,0,scrw,scrh);
-  backgroundimage.show(screen , "earth.bmp");
+  backgroundimage.show(screen , "backg.bmp");
 
   //*/
   ////////////////
@@ -95,17 +96,6 @@ int main() {
   Button start (buttonx, buttony, buttonw, buttonh);
   start.show(screen);
 
-  if (activate_gameengine == false)
-    {
-      SDL_Delay(500);
-      
-      if (start.handle_events() == 2)
-	{
-	  screen_active = false;
-	  
-	}    
-    }
-  
 
   //*/
   ////////////////
@@ -116,7 +106,14 @@ int main() {
   
   while (screen_active)
   {
-    if (SDL_PollEvent(&event))
+
+    if (start.handle_events() == 3)
+      {
+	screen_active = false;
+      }
+    
+    /*
+    if ( SDL_PollEvent(&event))
       {
 	if (event.type == SDL_QUIT)
 	  {
@@ -124,6 +121,8 @@ int main() {
 	    
 	  }
       }
+      */
+
   }
 
   SDL_Quit();
@@ -131,7 +130,7 @@ int main() {
 ////////////////END OF MENU///////////////////////
 
 
-  activate_gameengine = true;
+  //activate_gameengine = true;
 
 ////////////////GAME_UI/////////////////
 
