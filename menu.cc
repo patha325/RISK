@@ -1,10 +1,7 @@
 
 
 #include "SDL.h"
-//#include "SDL_image.h"
-#include "ui_elements.h"
-//#include "SDL_TTF.h"
-
+#include <iostream>
 using namespace std;
 
 int main() {
@@ -16,7 +13,7 @@ int main() {
   int bitdepth = 32;
   int activate_gameengine = false;
   bool screen_active = true;
-  SDL_Event event;
+  //SDL_Event event;
   
   ////////SDL UI setup////////
 
@@ -55,34 +52,15 @@ int main() {
   Textfield player1TF (tfx, tfy1, tfw);
   player1TF.show(screen);
 
-  player1TF.fetch_data();
 
-  //Player2
-  int tfy2 = (450); //playernumberfunction
+  ///player add-Button:///
 
-  Textfield player2TF (tfx, tfy2, tfw);
-  player2TF.show(screen);
-
-  player2TF.fetch_data();
-
-  //Player3
-  int tfy3 = (500); //playernumberfunction
-
-  Textfield player3TF (tfx, tfy3, tfw);
-  player3TF.show(screen);
+  Button add (((scrw / 2) - 15) ,(tfy1 + 50), 30, 30);
+  add.show(screen);
+  
+  Image addimage (((scrw / 2) - 15) ,(tfy1 + 50), 30, 30);
+  addimage.show(screen , "add.bmp");
  
- player3TF.fetch_data();
-
-  //Player4
-  int tfy4 = (550); //playernumberfunction
-
-  Textfield player4TF (tfx, tfy4, tfw);
-  player4TF.show(screen);
- 
- player4TF.fetch_data();
-
-
-  //*/
   ////////////////
 
 ///////Adding the "Start" button:////////
@@ -96,41 +74,63 @@ int main() {
   Button start (buttonx, buttony, buttonw, buttonh);
   start.show(screen);
 
+  Image startimage (buttonx, buttony, buttonw, buttonh);
+  startimage.show(screen , "start.bmp");
 
-  //*/
-  ////////////////
 
   SDL_Flip( screen );
 
   ///////Quit?////////
   
+
+  /// Program loop: ///
   while (screen_active)
   {
 
-    if (start.handle_events() == 3)
+    if (start.handle_events() == 3 || start.handle_events() == 4)
       {
 	screen_active = false;
+	activate_gameengine = true;
       }
     
-    /*
-    if ( SDL_PollEvent(&event))
+    if (player1TF.active_TF() == true)
       {
-	if (event.type == SDL_QUIT)
-	  {
-	    screen_active = false;
-	    
-	  }
+	player1TF.show_indic(screen);
+	SDL_Flip( screen );
+	cout << "textfieldinput" << endl;
+	//player1TF.fetch_data();
+	SDL_Delay(2000);  // temporary
+	player1TF.hide_indic(screen);
+	SDL_Flip( screen );
       }
-      */
-
+    
+    if (add.handle_events() == 3)
+      {
+	//int tfw = 300;
+	//int tfx = (scrw/2)-(tfw/2);
+	
+	//Next Player TF
+	int tfy2 = tfy1 + 50;
+	
+	Textfield player2TF (tfx, tfy2, tfw);
+	player2TF.show(screen);
+	
+	
+	///Player add-Button:///
+	
+	Button add2 (((scrw / 2) - 15) ,(tfy2 + 50) ,30 ,30);
+	add2.show(screen);
+	
+	Image addimage2 (((scrw / 2) - 15) ,(tfy2 + 50) ,30 ,30);
+	addimage2.show(screen , "add.bmp");
+	SDL_Flip( screen );
+      }
+    
   }
 
   SDL_Quit();
 
 ////////////////END OF MENU///////////////////////
-
-
-  //activate_gameengine = true;
 
 ////////////////GAME_UI/////////////////
 
@@ -152,22 +152,30 @@ if (activate_gameengine == true)
       
       ///Screen color 00:00:00
       SDL_FillRect( screen, &screen->clip_rect, SDL_MapRGB( screen->format, 0x00, 0x77, 0x00 ) );
+
+      ///////Adding the background image:////////
+      ///*
+      
+      Image backgroundimage (0,0,scrw,scrh);
+      backgroundimage.show(screen , "backg.bmp");
+      
+      //*/
+      ////////////////
+      
       
       SDL_Flip( screen );
       
       ///////Quit?////////
-      SDL_Event event;
+      //SDL_Event event;
       bool screen_active = true;
       while (screen_active)
 	{
-	  if (SDL_PollEvent(&event))
+	  if (start.handle_events() == 4)
 	    {
-	      if (event.type == SDL_QUIT)
-		{
-		  screen_active = false;
-		  
-		}
+	      screen_active = false;
 	    }
+	  
+	  
 	}
       
       SDL_Quit(); 

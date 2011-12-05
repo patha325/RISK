@@ -32,15 +32,20 @@ class Image
 
 class Textfield
 {
-
  private:
   SDL_Rect* dim;
+  SDL_Rect* idim;
+  //bool indic_active;
 
  public:
   Textfield (int x, int y, int w);
   void show(SDL_Surface* surf);
   void fetch_data();
+  void show_indic(SDL_Surface* surf2);
+  void hide_indic(SDL_Surface* surf3);
+  bool active_TF();
 
 };
+
 
 #endif
