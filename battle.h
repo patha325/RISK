@@ -9,9 +9,8 @@ class Battle
 {
  public:
   Battle();
-  bool new_battle(Territory*, Territory*, std::string);
+  void new_battle(Territory*, Territory*, std::string);
   int attack(int);
-  void retreat();
   void conquer(int,int);
 
   private:

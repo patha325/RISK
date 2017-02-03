@@ -14,6 +14,9 @@ public:
   std::string get_color();
   Card* get_card(int);
   void discard_card(Card*);
+  void print_cards();
+  int n_cards();
+  void give_card(Card*);
 private:
   std::string name;
   std::string color;

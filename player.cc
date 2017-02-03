@@ -26,25 +26,42 @@ string Player::get_color()
 
 }
 
+
+
 Card* Player::get_card(int position)
 {
-  Card*  c1 = new Card("canon","western_australia"); // PATRIK
-  cards.push_back(c1); // PATRIK
+  if ( position < 0 || position > cards.size())
+    throw risk_error("Please select the card you own.");
 
-  if(cards.size() < position) // PATRIK
-    throw risk_error("You don't have that many cards");
   return cards[position];
-
 }
 
 void Player::discard_card(Card* card)
 {
-  vector<Card*>::iterator it;
-
-  for ( it=cards.begin() ; it < cards.end(); it++ )
+  for (vector<Card*>::iterator it = cards.begin() ; it < cards.end(); it++ )
     {
       if( (*it)->get_terr() == card->get_terr())
       	cards.erase(it);
     }
+}
 
+void Player::give_card(Card* card)
+{
+  cards.push_back(card);
+
+}
+
+void Player::print_cards()
+{
+  int i = 0;
+  for (vector<Card*>::iterator it = cards.begin(); it != cards.end(); ++it)
+    {
+      
+      cout << i++ << ": " << (*it)->get_type() << " " << (*it)->get_terr() << endl;
+    }  
+}
+
+int Player::n_cards()
+{
+  return cards.size();
 }

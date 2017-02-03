@@ -12,19 +12,26 @@ using namespace std;
 
 Battle::Battle(){}
 
-bool Battle::new_battle(Territory* terr1 , Territory* terr2, string color)
+void Battle::new_battle(Territory* terr1 , Territory* terr2, string color)
 {
   if (!(terr1->owned_by(color)) || terr1->get_armies() == 1 || terr2->owned_by(color) || !(terr1->is_adjacent(terr2->get_name())))
+    {
+      cout << "Player: " + terr1->get_owner() + " owns " + terr1->get_name() + " and Player: " + terr2->get_owner() + " owns " + terr2->get_name() <<endl; // PATRIK
     throw risk_error("Unable to initiate attack.");
-
+    }
   attacker = terr1;
   defender = terr2;
+
+  cout << attacker->get_armies() << " brave attackers face off against " << defender->get_armies() << " meagre defenders." << endl;
 }
 
 int Battle::attack(int attackers)
-{
+{ 
+  if( attackers > 3 || attackers < 1)
+    throw risk_error("Please attack with 1 to 3 troops.");
   if (attackers >= attacker->get_armies())
     throw risk_error("You don't have enough troops!");
+
   vector<int> a_rolls;
   vector<int> d_rolls;
   srand (time(NULL));
@@ -69,21 +76,16 @@ int Battle::attack(int attackers)
   return 1;
 }
 
-void Battle::retreat()
-{
-
-}
-
-
 void Battle::conquer(int attackers,int settlers)
 {
-  if (attackers  > (attacker->get_armies() - 1))
+  if (settlers  > (attacker->get_armies() - 1))
     throw risk_error("You don't have that many armies to transfer!");
   if (settlers < attackers)
     throw risk_error("You need to move more armies!");
 
   defender->set_owner(attacker->get_owner());
-  attacker->move_armies(attacker->get_owner(), defender, settlers);
+  attacker->remove_armies(settlers);
+  defender->add_armies(attacker->get_owner(), settlers);
 }
 
 int Battle::diceroll()

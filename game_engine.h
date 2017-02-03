@@ -9,14 +9,23 @@
 #include "card.h"
 #include "player.h"
 #include "risk_error.h"
+#include "game_ui.h"
 
 class Game_Engine
 {
  public:
   Game_Engine(std::vector<Player>);
-void run();
+  void run();
+  std::string  get_owner(std::string);
+  std::string  get_armies(std::string);
+ std::string  get_reinforcements();  
 
+  void crossreference(Game_UI*);
  private:
+
+  Game_UI* ui;
+
+
   std::vector<Player> players;
   int reinforcements;
   std::vector<Player>::iterator current_player;

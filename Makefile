@@ -6,20 +6,18 @@
 CCC = g++
 
 # Kompilatorflaggor, lägg till '-g' om kompilering för avlusning ska göras.
-CCFLAGS  += -std=c++0x -pedantic `sdl-config --libs --cflags`
+CCFLAGS  += -std=c++0x -pedantic -L/sw/gcc-4.5.1/lib -lSDL -lSDL_ttf -lSDL_image -g -O0 `sdl-config --libs --cflags `
 #-Wall -Wextra
-
-# Preprocessorflaggor, -I lägger till en filkatalog i inkluderingssökvägen.
-CPPFLAGS += -I$(EXPRESSION)
-CPPFLAGS += -I$(VARIABLETABLE)
+# -L/sw/gcc-4.5.1/lib
 
 # Objektkodsmoduler som ingår i den kompletta kalkylatorn.
-OBJECTS = main.o battle.o card.o game_engine.o player.o territory.o worldmap.o
-UI_OBJECTS = menu.o ui_elements.o
+OBJECTS = main.o battle.o card.o game_engine.o player.o territory.o worldmap.o game_ui.o label.o Button.o Clickable.o Image.o
+#UI_OBJECTS = game_ui.o label.o Button.o Clickable.o Image.o
 
 # Huvudmål - skapas med kommandot 'make' eller 'make kalkylator'.
 main: $(OBJECTS) Makefile
-	$(CCC) $(CCFLAGS) $(CPPFLAGS) -o main $(OBJECTS)
+	$(CCC) $(CCFLAGS) $(CPPFLAGS) -o main $(OBJECTS) 
+#$(UI_OBJECTS)
 
 # Delmål (flaggan -c avbryter innan länkning)
 main.o: main.cc game_engine.h
@@ -43,14 +41,23 @@ territory.o: territory.cc territory.h
 worldmap.o: worldmap.cc worldmap.h
 	$(CCC) $(CCFLAGS) $(CPPFLAGS) -c worldmap.cc
 
-risk: $(UI_OBJECTS) Makefile
-	$(CCC) $(CCFLAGS) $(CPPFLAGS) -o risk $(UI_OBJECTS)
+#risk: $(UI_OBJECTS) Makefile
+#	$(CCC) $(CCFLAGS) $(CPPFLAGS) -o risk $(UI_OBJECTS)
 
-menu.o: menu.cc
-	$(CCC) $(CCFLAGS) $(CPPFLAGS) -c menu.cc
+game_ui.o: game_ui.h game_ui.cc
+	$(CCC) $(CCFLAGS) $(CPPFLAGS) -c game_ui.cc
 
-ui_elements.o: ui_elements.h ui_elements.cc
-	$(CCC) $(CCFLAGS) $(CPPFLAGS) -c ui_elements.cc
+label.o: label.h label.cc
+	$(CCC) $(CCFLAGS) $(CPPFLAGS) -c label.cc
+
+Button.o: Button.h Button.cc
+	$(CCC) $(CCFLAGS) $(CPPFLAGS) -c Button.cc
+
+Clickable.o: Clickable.h Clickable.cc
+	$(CCC) $(CCFLAGS) $(CPPFLAGS) -c Clickable.cc
+
+Image.o: Image.h Image.cc
+	$(CCC) $(CCFLAGS) $(CPPFLAGS) -c Image.cc
 
 
 
